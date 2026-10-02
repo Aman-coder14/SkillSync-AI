@@ -1,51 +1,61 @@
-import { useEffect, useState } from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
-import { getHealth, type HealthResponse } from './api/health'
+import type { ReactNode } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
+import { DashboardPage } from "./pages/DashboardPage";
+import { LoginPage } from "./pages/LoginPage";
+import { RegisterPage } from "./pages/RegisterPage";
+
+function SessionCheck() {
+    return (
+        <main className="session-check" aria-live="polite">
+            <span className="session-check__mark" aria-hidden="true" />
+            <p>Checking your session...</p>
+        </main>
+    );
+}
+
+function ProtectedRoute({ children }: { children: ReactNode }) {
+    const { status } = useAuth();
+
+    if (status === "loading") {
+        return <SessionCheck />;
+    }
+    if (status !== "authenticated") {
+        return <Navigate to="/login" replace />;
+    }
+    return children;
+}
+
+function GuestRoute({ children }: { children: ReactNode }) {
+    const { status } = useAuth();
+
+    if (status === "loading") {
+        return <SessionCheck />;
+    }
+    if (status === "authenticated") {
+        return <Navigate to="/dashboard" replace />;
+    }
+    return children;
+}
+
+function HomeRedirect() {
+    const { status } = useAuth();
+    if (status === "loading") {
+        return <SessionCheck />;
+    }
+    return <Navigate to={status === "authenticated" ? "/dashboard" : "/login"} replace />;
+}
 
 function App() {
-  const [health, setHealth] = useState<HealthResponse | null>(null)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    getHealth()
-      .then(setHealth)
-      .catch(() => setError('Backend unavailable. Start it with npm run dev.'))
-  }, [])
-
-  return (
-    <main>
-      <nav>
-        <strong>SkillSync AI</strong>
-        <Link to="/health">Connection health</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/health"
-          element={
-            <section className="panel">
-              <p className="eyebrow">System check</p>
-              <h1>Backend connection</h1>
-              {health ? <p className="success">{health.message}</p> : null}
-              {error ? <p className="error">{error}</p> : null}
-              {!health && !error ? <p>Checking the API...</p> : null}
-            </section>
-          }
-        />
-      </Routes>
-    </main>
-  )
+    return (
+        <Routes>
+            <Route path="/" element={<HomeRedirect />} />
+            <Route path="/login" element={<GuestRoute><LoginPage /></GuestRoute>} />
+            <Route path="/register" element={<GuestRoute><RegisterPage /></GuestRoute>} />
+            <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+            <Route path="*" element={<HomeRedirect />} />
+        </Routes>
+    );
 }
 
-function Home() {
-  return (
-    <section className="panel">
-      <p className="eyebrow">Workspace ready</p>
-      <h1>Build better career conversations.</h1>
-      <p>SkillSync AI is ready for its next development slice.</p>
-      <Link className="button" to="/health">Check backend health</Link>
-    </section>
-  )
-}
-
-export default App
+export default App;

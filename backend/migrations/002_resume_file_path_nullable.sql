@@ -1,0 +1,2 @@
+ALTER TABLE resumes
+    ALTER COLUMN file_path DROP NOT NULL;
