@@ -470,6 +470,195 @@ h1 {
   color: #19352f;
 }
 
+.job-section {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid #cbbda4;
+}
+
+.job-section > .resume-section__heading {
+  margin-bottom: 24px;
+}
+
+.job-history,
+.job-history select,
+.job-match-controls select {
+  font-family: Arial, sans-serif;
+}
+
+.job-history {
+  display: grid;
+  grid-template-columns: auto minmax(180px, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: #53665e;
+  font-size: 0.9rem;
+}
+
+.job-history label,
+.job-match-controls label {
+  font-weight: 700;
+}
+
+.job-history select,
+.job-match-controls select {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #b6aa94;
+  border-radius: 3px;
+  background: #fffdf8;
+  color: #19352f;
+  font-size: 0.95rem;
+}
+
+.job-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px;
+}
+
+.job-form__description {
+  grid-column: 1 / -1;
+}
+
+.job-form textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: 12px;
+  resize: vertical;
+  border: 1px solid #b6aa94;
+  border-radius: 3px;
+  background: #fffdf8;
+  color: #19352f;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.job-form input:focus-visible,
+.job-form textarea:focus-visible,
+.job-history select:focus-visible,
+.job-match-controls select:focus-visible {
+  border-color: #19352f;
+  outline: 2px solid #19352f;
+  outline-offset: 2px;
+}
+
+.job-form textarea:disabled,
+.job-form input:disabled {
+  opacity: 0.7;
+}
+
+.job-form .field-hint {
+  text-align: right;
+}
+
+.job-form__button {
+  justify-self: start;
+  margin-top: 0;
+}
+
+.job-section .form-message {
+  margin-top: 20px;
+}
+
+.job-analysis {
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid #cbbda4;
+}
+
+.job-analysis__title,
+.job-match__score {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.job-analysis__title .eyebrow {
+  margin-bottom: 10px;
+}
+
+.job-analysis__title h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+.job-analysis__title > p,
+.job-analysis__summary {
+  color: #53665e;
+  font-family: Arial, sans-serif;
+}
+
+.job-analysis__title > p {
+  margin: 0;
+}
+
+.job-analysis__summary {
+  max-width: 760px;
+  line-height: 1.6;
+}
+
+.job-analysis__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 32px;
+  margin-top: 24px;
+}
+
+.job-match-controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  align-items: end;
+  gap: 16px;
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid #cbbda4;
+}
+
+.job-match-controls .form-field {
+  gap: 8px;
+  color: #19352f;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+}
+
+.job-match-controls .auth-submit {
+  margin: 0;
+}
+
+.job-analysis > .field-hint {
+  margin: 12px 0 0;
+}
+
+.job-match {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid #cbbda4;
+}
+
+.job-match__score {
+  align-items: center;
+}
+
+.job-match__score h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.job-match__score strong {
+  color: #3f7751;
+  font-family: Arial, sans-serif;
+  font-size: 1.8rem;
+}
+
 .session-check {
   min-height: 100vh;
   display: grid;
@@ -537,5 +726,32 @@ h1 {
 
   .resume-profile__grid {
     grid-template-columns: 1fr;
+  }
+
+  .job-form,
+  .job-analysis__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .job-form__description {
+    grid-column: auto;
+  }
+
+  .job-history {
+    grid-template-columns: 1fr;
+  }
+
+  .job-match-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .job-match-controls .auth-submit {
+    justify-self: start;
+  }
+
+  .job-analysis__title {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
 }

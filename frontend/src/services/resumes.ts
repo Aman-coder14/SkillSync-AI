@@ -45,3 +45,15 @@ export async function parseUploadedResume(id: string): Promise<ParsedResume> {
     const response = await api.post<{ resume: ParsedResume }>(`/resumes/${encodeURIComponent(id)}/parse`);
     return response.data.resume;
 }
+
+export interface ResumeOption {
+    id: string;
+    file_name: string;
+    created_at: string;
+    is_parsed: boolean;
+}
+
+export async function listResumes(): Promise<ResumeOption[]> {
+    const response = await api.get<{ resumes: ResumeOption[] }>("/resumes");
+    return response.data.resumes;
+}
